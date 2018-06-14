@@ -23,8 +23,8 @@ public class Start {
         Deployment dep = rs.createDeployment().addClasspathResource("bpmn/c11/start.bpmn").deploy();
         ProcessDefinition pd = rs.createProcessDefinitionQuery().deploymentId(dep.getId()).singleResult();
         // 启动流程
-        ProcessInstance pi = runService.startProcessInstanceById(pd.getId(), "abc");
-        
+        ProcessInstance pi = runService.startProcessInstanceById(pd.getId(), "business_key");
+
         System.out.println(pi.getId());
     }
 

@@ -10,5 +10,9 @@
 		<property name="jdbcUsername" value="root" />
 		<property name="jdbcPassword" value="root" />
 		<property name="databaseSchemaUpdate" value="true" />
+		<property name="asyncExecutorActivate" value="true"/>
 	</bean>
+
+	<!-- 第c22中，start事件中的监听器配置了delegate expression类型的${startExecutionListener}监听器-->
+	<bean id="startExecutionListener" class="org.crazyit.act.c22.StartExecutionListener"/>
 </beans>

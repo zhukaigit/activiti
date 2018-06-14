@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1528872345376" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="myProcess" isClosed="false" isExecutable="true" name="My process" processType="None">
+    <startEvent id="startevent1" name="Start"/>
+    <transaction activiti:exclusive="true" id="transaction1" method="##Compensate" name="Transaction" triggeredByEvent="false">
+      <startEvent id="startevent2" name="Start"/>
+      <endEvent id="cancelendevent1" name="CancelEnd">
+        <cancelEventDefinition id="cancelendevent1_ED_1"/>
+      </endEvent>
+      <userTask activiti:exclusive="true" id="usertask1" name="Tran Task"/>
+      <serviceTask activiti:class="org.crazyit.act.c16.dlg.CompenstaionDelegate" activiti:exclusive="true" id="servicetask1" isForCompensation="true" name="Compensation"/>
+      <boundaryEvent attachedToRef="usertask1" cancelActivity="true" id="boundarycompensation1" name="Compensate">
+        <compensateEventDefinition id="boundarycompensation1_ED_1" waitForCompletion="true"/>
+      </boundaryEvent>
+      <sequenceFlow id="flow3" sourceRef="startevent2" targetRef="usertask1"/>
+      <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="cancelendevent1"/>
+      <association associationDirection="None" id="association1" sourceRef="boundarycompensation1" targetRef="servicetask1"/>
+    </transaction>
+    <boundaryEvent attachedToRef="transaction1" cancelActivity="true" id="boundarycancel1" name="Cancel">
+      <cancelEventDefinition id="boundarycancel1_ED_1"/>
+    </boundaryEvent>
+    <endEvent id="endevent1" name="End"/>
+    <userTask activiti:exclusive="true" id="usertask2" name="Cancle Task"/>
+    <sequenceFlow id="flow2" sourceRef="transaction1" targetRef="endevent1"/>
+    <sequenceFlow id="flow5" sourceRef="boundarycancel1" targetRef="usertask2"/>
+    <sequenceFlow id="flow6" sourceRef="startevent1" targetRef="transaction1"/>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#3C3F41;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="myProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="Shape-startevent1">
+        <omgdc:Bounds height="32.0" width="32.0" x="60.0" y="148.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="transaction1" id="Shape-transaction1" isExpanded="true">
+        <omgdc:Bounds height="191.0" width="301.0" x="150.0" y="70.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="191.0" width="301.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="Shape-endevent1">
+        <omgdc:Bounds height="32.0" width="32.0" x="540.0" y="148.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="Shape-usertask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="380.0" y="300.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent2" id="Shape-startevent2">
+        <omgdc:Bounds height="32.0" width="32.0" x="170.0" y="120.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="cancelendevent1" id="Shape-cancelendevent1">
+        <omgdc:Bounds height="32.0" width="32.0" x="400.0" y="120.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="Shape-usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="250.0" y="110.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="Shape-servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="330.0" y="200.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundarycancel1" id="Shape-boundarycancel1">
+        <omgdc:Bounds height="32.0" width="32.0" x="290.0" y="250.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="140.0" y="180.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundarycompensation1" id="Shape-boundarycompensation1">
+        <omgdc:Bounds height="32.0" width="32.0" x="288.0" y="153.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="38.0" y="43.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2" sourceElement="transaction1" targetElement="endevent1">
+        <omgdi:waypoint x="451.0" y="165.5"/>
+        <omgdi:waypoint x="540.0" y="164.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3" sourceElement="startevent2" targetElement="usertask1">
+        <omgdi:waypoint x="202.0" y="136.0"/>
+        <omgdi:waypoint x="250.0" y="137.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4" sourceElement="usertask1" targetElement="cancelendevent1">
+        <omgdi:waypoint x="355.0" y="137.5"/>
+        <omgdi:waypoint x="400.0" y="136.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5" sourceElement="boundarycancel1" targetElement="usertask2">
+        <omgdi:waypoint x="322.0" y="266.0"/>
+        <omgdi:waypoint x="380.0" y="327.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6" sourceElement="startevent1" targetElement="transaction1">
+        <omgdi:waypoint x="92.0" y="164.0"/>
+        <omgdi:waypoint x="150.0" y="165.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1" sourceElement="boundarycompensation1" targetElement="servicetask1">
+        <omgdi:waypoint x="316.82935753794595" y="178.56073141362856"/>
+        <omgdi:waypoint x="345.59829059829053" y="200.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
