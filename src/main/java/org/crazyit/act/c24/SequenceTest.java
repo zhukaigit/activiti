@@ -30,13 +30,13 @@ public class SequenceTest {
         Map<String, Object> vars = new HashMap<String, Object>();
         vars.put("days", 2);
 
-        ProcessInstance pi = runService.startProcessInstanceById(pd.getId(), vars);
-        
+        ProcessInstance pi = runService.startProcessInstanceById(pd.getId());
+
         
         Task task = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
         System.out.println("当前任务：" + task.getName());
         // 完成第一个任务
-        taskService.complete(task.getId());
+        taskService.complete(task.getId(), vars);
         
         task = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
         System.out.println("当前任务：" + task.getName());
